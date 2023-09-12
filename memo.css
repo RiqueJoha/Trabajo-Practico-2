@@ -1,0 +1,36 @@
+#inicio {
+    color: aliceblue;
+    display: grid;
+    place-content: center;
+
+}
+
+body {
+    display: grid;
+    place-content: center;
+    background-color: rgb(113, 113, 172);
+    align-content: space-evenly;
+    justify-content: space-evenly;
+    align-items: center;
+    justify-items: stretch;
+}
+
+
+.casilla {
+    background-color: rgb(169, 172, 196);
+    width: 120px;
+    height: 120px;
+    border: 1px solid black;
+    box-shadow: 0 0 10px 1px #FFF9C4;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+
+
+img {
+    height: 150px;
+    width: 200px;
+ 
+}
+

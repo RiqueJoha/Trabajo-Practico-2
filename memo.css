@@ -21,11 +21,11 @@ body {
     width: 120px;
     height: 120px;
     border: 1px solid black;
-    box-shadow: 0 0 10px 1px #FFF9C4;
+    box-shadow: 0 0 5px 1px #FFF9C4;
     padding-left: 0px;
     padding-right: 0px;
+  
 }
-
 
 
 img {

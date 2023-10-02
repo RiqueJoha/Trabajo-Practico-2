@@ -18,8 +18,8 @@ body {
 
 .casilla {
     background-color: rgb(169, 172, 196);
-    width: 100px;
-    height: 100px;
+    width: 140px;
+    height: 140px;
     border: 1px solid black;
     box-shadow: 0 0 5px 1px #FFF9C4;
     padding-left: 0px;
@@ -36,10 +36,11 @@ img {
 
 
 #resultado1{
-    background-color: rgb(169, 172, 196);
+    
     width: 200px;
-    height: 50px;
+    height: 30px;
     border: 1px solid black;
+    background-color:  rgb(169, 172, 196);
     box-shadow: 0 0 5px 1px #FFF9C4;
     display: grid;
     place-content: center;
@@ -51,7 +52,7 @@ img {
 }
 
 button{
+    background-color: rgb(169, 172, 196);
     width: 200px;
-    height: 50px;
-
+    height: 30px;
 }

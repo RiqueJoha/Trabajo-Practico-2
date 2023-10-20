@@ -16,11 +16,11 @@ const imagenes = [
 ]
 
 const imagenesContador = {};
+/* imagenesContador realiza un seguimiento del número de veces que se ha mostrado cada imagen en el tablero. */
 
-let ElementoSeleccionado = 0;
-let aciertos = 0;
+
 let clicks = 0;
-
+let ElementoSeleccionado = 0;
 
 function inicializarContador() {
     imagenes.forEach((imagen) => {
@@ -31,9 +31,9 @@ function inicializarContador() {
 function generar() {
     const MAX_FILA = 3;
     const MAX_COL = 4;
-
+    
     inicializarContador();
-    aciertos = 1;
+    aciertos = 0 + 1;
 
 
     divMatriz.innerHTML = "";
@@ -59,7 +59,7 @@ function generar() {
 
         return columnas;
     }
-
+/* La función obtenerImagenAleatoria filtra las imágenes que no se han mostrado más de dos veces y elige aleatoriamente una de las imágenes disponibles. Luego, al hacer clic en un elemento del tablero, se muestra la imagen correspondiente y se actualiza el contador. Esto garantiza que nunca se muestren más de dos imágenes idénticas en el tablero. */
     function obtenerImagenAleatoria() {
         const imagenesDisponibles = imagenes.filter((imagen) => imagenesContador[imagen] < 2);
         const imgAleatoria = imagenesDisponibles[Math.floor(Math.random() * imagenesDisponibles.length)];
@@ -69,6 +69,8 @@ function generar() {
         return imgAleatoria;
     }
 }
+
+/* getAttribute se utiliza para conocer la URL de la imagen que se debe mostrar en la casilla cuando el jugador hace clic  */
 
 function seleccionar(elemento) {
 
@@ -87,9 +89,12 @@ function seleccionar(elemento) {
                     const TOTAL_ACIERTOS = 7;
                     if (aciertos === TOTAL_ACIERTOS) {
                         pResultado1.innerHTML = "FELICITACIONES GANASTE"
-                        pResultado2.innerHTML = `<button onclick="VolveAJugar()">Volver a Jugar</button>`
+                        pResultado2.innerHTML = `
+                        <button onclick="VolveAJugar()">Volver a Jugar</button>
+                        <button onclick="Retomar jugada()">Retomar Jugada</button>
+                        `
                     }
-                }, 500);
+                }, 100);
                 ElementoSeleccionado = 0;
             } else {
 
@@ -112,5 +117,3 @@ function VolveAJugar() {
     pResultado2.innerHTML = "";
     generar()
 }
-
-

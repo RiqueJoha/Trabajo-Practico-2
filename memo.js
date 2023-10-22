@@ -21,6 +21,7 @@ const imagenesContador = {};
 
 let clicks = 0;
 let ElementoSeleccionado = 0;
+const ACIERTOS_GANADOR = 7;
 
 function inicializarContador() {
     imagenes.forEach((imagen) => {
@@ -31,10 +32,9 @@ function inicializarContador() {
 function generar() {
     const MAX_FILA = 3;
     const MAX_COL = 4;
-    
+    let aciertos=0;
+    aciertosTotales=aciertos + 1;
     inicializarContador();
-    aciertos = 0 + 1;
-
 
     divMatriz.innerHTML = "";
 
@@ -85,13 +85,13 @@ function seleccionar(elemento) {
             if (ElementoSeleccionado.getAttribute("data-imagen") === imgURL) {
 
                 setTimeout(() => {
-                    pResultado1.innerHTML = "Aciertos: " + (aciertos++);
-                    const TOTAL_ACIERTOS = 7;
-                    if (aciertos === TOTAL_ACIERTOS) {
+                    pResultado1.innerHTML = "Aciertos: " + (aciertosTotales++);
+
+                   
+                    if (aciertosTotales === ACIERTOS_GANADOR) {
                         pResultado1.innerHTML = "FELICITACIONES GANASTE"
                         pResultado2.innerHTML = `
                         <button onclick="VolveAJugar()">Volver a Jugar</button>
-                        <button onclick="Retomar jugada()">Retomar Jugada</button>
                         `
                     }
                 }, 100);

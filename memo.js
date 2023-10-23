@@ -15,17 +15,14 @@ const imagenes = [
 
 ]
 
-const imagenesContador = {};
-/* imagenesContador realiza un seguimiento del número de veces que se ha mostrado cada imagen en el tablero. */
 
-
+const TOTAL_ACIERTOS = 7;
+let ImgSeleccionada = 0;
 let clicks = 0;
-let ElementoSeleccionado = 0;
-const ACIERTOS_GANADOR = 7;
 
-function inicializarContador() {
+function ContadorImg() {
     imagenes.forEach((imagen) => {
-        imagenesContador[imagen] = 0;
+        imagenes[imagen] = 0;
     });
 }
 
@@ -34,7 +31,8 @@ function generar() {
     const MAX_COL = 4;
     let aciertos=0;
     aciertosTotales=aciertos + 1;
-    inicializarContador();
+
+    ContadorImg();
 
     divMatriz.innerHTML = "";
 
@@ -61,10 +59,10 @@ function generar() {
     }
 /* La función obtenerImagenAleatoria filtra las imágenes que no se han mostrado más de dos veces y elige aleatoriamente una de las imágenes disponibles. Luego, al hacer clic en un elemento del tablero, se muestra la imagen correspondiente y se actualiza el contador. Esto garantiza que nunca se muestren más de dos imágenes idénticas en el tablero. */
     function obtenerImagenAleatoria() {
-        const imagenesDisponibles = imagenes.filter((imagen) => imagenesContador[imagen] < 2);
-        const imgAleatoria = imagenesDisponibles[Math.floor(Math.random() * imagenesDisponibles.length)];
+        const imgDisp = imagenes.filter((imagen) => imagenes[imagen] < 2);
+        const imgAleatoria = imgDisp[Math.floor(Math.random() * imgDisp.length)];
 
-        imagenesContador[imgAleatoria]++;
+        imagenes[imgAleatoria]++;
 
         return imgAleatoria;
     }
@@ -78,36 +76,33 @@ function seleccionar(elemento) {
     elemento.innerHTML = `<img class="col casilla" src="${imgURL}" alt=""></img>`;
 
 
-    if (clicks < 2) {
-        if (ElementoSeleccionado === 0) {
-            ElementoSeleccionado = elemento;
+    if (clicks == 0) {
+        if (ImgSeleccionada === 0) {
+            ImgSeleccionada = elemento;
         } else {
-            if (ElementoSeleccionado.getAttribute("data-imagen") === imgURL) {
+            if (ImgSeleccionada.getAttribute("data-imagen") === imgURL) {
 
                 setTimeout(() => {
                     pResultado1.innerHTML = "Aciertos: " + (aciertosTotales++);
 
                    
-                    if (aciertosTotales === ACIERTOS_GANADOR) {
+                    if (aciertosTotales === TOTAL_ACIERTOS) {
                         pResultado1.innerHTML = "FELICITACIONES GANASTE"
                         pResultado2.innerHTML = `
                         <button onclick="VolveAJugar()">Volver a Jugar</button>
                         `
                     }
                 }, 100);
-                ElementoSeleccionado = 0;
+                ImgSeleccionada = 0;
             } else {
 
                 setTimeout(() => {
-                    ElementoSeleccionado.innerHTML = "";
+                    ImgSeleccionada.innerHTML = "";
                     elemento.innerHTML = "";
-                    ElementoSeleccionado = 0;
+                    ImgSeleccionada = 0;
                 }, 500);
             }
-            clicks = 0;
         }
-
-
     }
 
 }
@@ -115,5 +110,7 @@ function seleccionar(elemento) {
 function VolveAJugar() {
     pResultado1.innerHTML = "Aciertos:";
     pResultado2.innerHTML = "";
+    clicks = 0;
+    aciertos=0;
     generar()
 }

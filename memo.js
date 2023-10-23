@@ -15,10 +15,10 @@ const imagenes = [
 
 ]
 
-
-const TOTAL_ACIERTOS = 7;
+const TOTAL_ACIERTOS = 6;
 let ImgSeleccionada = 0;
 let clicks = 0;
+let aciertos=0;
 
 function ContadorImg() {
     imagenes.forEach((imagen) => {
@@ -29,8 +29,8 @@ function ContadorImg() {
 function generar() {
     const MAX_FILA = 3;
     const MAX_COL = 4;
-    let aciertos=0;
-    aciertosTotales=aciertos + 1;
+    
+    
 
     ContadorImg();
 
@@ -83,10 +83,10 @@ function seleccionar(elemento) {
             if (ImgSeleccionada.getAttribute("data-imagen") === imgURL) {
 
                 setTimeout(() => {
-                    pResultado1.innerHTML = "Aciertos: " + (aciertosTotales++);
+                    aciertos ++;
+                    pResultado1.innerHTML = "Aciertos: " + (aciertos);
 
-                   
-                    if (aciertosTotales === TOTAL_ACIERTOS) {
+                    if (aciertos === TOTAL_ACIERTOS) {
                         pResultado1.innerHTML = "FELICITACIONES GANASTE"
                         pResultado2.innerHTML = `
                         <button onclick="VolveAJugar()">Volver a Jugar</button>

@@ -74,7 +74,6 @@ function seleccionar(elemento) {
 
     const imgURL = elemento.getAttribute("data-imagen");
     elemento.innerHTML = `<img class="col casilla" src="${imgURL}" alt=""></img>`;
-
     if (ImgSeleccionada === 0) {
         ImgSeleccionada = elemento;
     } else {
@@ -82,7 +81,7 @@ function seleccionar(elemento) {
             elemento.style.pointerEvents = "none"
             
             setTimeout(() => {
-                aciertos++
+                aciertos++;
                 pResultado1.innerHTML = "Aciertos: " + (aciertos);
                 listaAciertos.push(aciertos);
                 localStorage.setItem(ACIERTOS, JSON.stringify(listaAciertos))

@@ -63,7 +63,7 @@ function generar() {
 
         return columnas;
     }
-    /* La función obtenerImagenAleatoria filtra las imágenes que no se han mostrado más de dos veces y elige aleatoriamente una de las imágenes disponibles. Luego, al hacer clic en un elemento del tablero, se muestra la imagen correspondiente y se actualiza el contador. Esto garantiza que nunca se muestren más de dos imágenes idénticas en el tablero. */
+   
     /* La función obtenerImagenAleatoria filtra las imágenes que no se han mostrado más de dos veces y elige aleatoriamente una de las imágenes disponibles. Luego, al hacer clic en un elemento del tablero, se muestra la imagen correspondiente y se actualiza el contador. Esto garantiza que nunca se muestren más de dos imágenes idénticas en el tablero. */
     function obtenerImagenAleatoria() {
         const imgDisp = imagenes.filter((imagen) => imagenes[imagen] < 2);

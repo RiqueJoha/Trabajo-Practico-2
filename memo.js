@@ -26,17 +26,22 @@ let aciertos = 0;
 listaAciertos = [];
 listaImagenes = [];
 
+/**
+ * Recorre las imágenes que están en el contenedor
+ */
 function ContadorImg() {
     imagenes.forEach((imagen) => {
         imagenes[imagen] = 0;
     });
 }
 
+/**
+ * Genera la matriz
+ */
 function generar() {
     const MAX_FILA = 3;
     const MAX_COL = 4;
     pResultado2.innerHTML=""
-
 
     ContadorImg();
 
@@ -54,6 +59,7 @@ function generar() {
         let columnas = "";
 
         for (let col = 0; col < MAX_COL; col++) {
+
             const imgAleatoria = obtenerImagenAleatoria();
             columnas += `
                 <div onclick="seleccionar(this)" data-imagen="${imgAleatoria}" class="col casilla">
@@ -64,7 +70,7 @@ function generar() {
         return columnas;
     }
    
-    /* La función obtenerImagenAleatoria filtra las imágenes que no se han mostrado más de dos veces y elige aleatoriamente una de las imágenes disponibles. Luego, al hacer clic en un elemento del tablero, se muestra la imagen correspondiente y se actualiza el contador. Esto garantiza que nunca se muestren más de dos imágenes idénticas en el tablero. */
+    /* Filtra las imágenes que no se han mostrado más de dos veces y elige aleatoriamente una de las imágenes disponibles. Luego, al hacer clic en un elemento del tablero, se muestra la imagen correspondiente y se actualiza el contador */
     function obtenerImagenAleatoria() {
         const imgDisp = imagenes.filter((imagen) => imagenes[imagen] < 2);
         const imgAleatoria = imgDisp[Math.floor(Math.random() * imgDisp.length)];
@@ -75,35 +81,46 @@ function generar() {
     }
 }
 
-/* getAttribute se utiliza para conocer la URL de la imagen que se debe mostrar en la casilla cuando el jugador hace clic  */
 
+/**
+ * Permite seleccionar la casilla
+ * @param {HTMLDivElement} elemento: muestra la imagen en la casilla
+ */
 function seleccionar(elemento) {
 
     const imgURL = elemento.getAttribute("data-imagen");
     elemento.innerHTML = `<img class="col casilla" src="${imgURL}" alt=""></img>`;
-  
+
+    comparaCasillas(elemento, imgURL);
+}
 
 
+/**
+ * Límita la cantidad de clicks,compara las imágenes y muestra los aciertos
+ * @param {HTMLDivElement} elemento:contiene la imagen seleccionada
+ * @param {string} imgURL:representa la otra imagen que se utiliza para la comparación
+ */
+function comparaCasillas(elemento, imgURL) {
     if (clicks <= 2) {
         if (ImgSeleccionada === 0) {
             ImgSeleccionada = elemento;
         } else {
             if (ImgSeleccionada.getAttribute("data-imagen") === imgURL) {
-                elemento.style.pointerEvents = "none"
+                elemento.style.pointerEvents = "none";
                 setTimeout(() => {
                     aciertos++;
                     pResultado1.innerHTML = "Aciertos: " + (aciertos);
-                    
-                    listaImagenes.push(imgURL)
-                    listaAciertos.push(aciertos)
 
-                    actualizarLocalStorage(); 
+                    listaImagenes.push(imgURL);
+                    listaAciertos.push(aciertos);
+
+                    actualizarLocalStorage();
 
                     if (aciertos === TOTAL_ACIERTOS) {
-                        pResultado1.innerHTML = "FELICITACIONES GANASTE"
+                        pResultado1.innerHTML = "FELICITACIONES GANASTE";
                         pResultado2.innerHTML = `
                         <button onclick="volveAJugar()">Volver a Jugar</button>
-                        `
+                        `;
                         elemento.style.pointerEvents = "none";
                         juegoGanado = true;
                     }
@@ -121,14 +138,16 @@ function seleccionar(elemento) {
 
     }
 }
-
-
-
+ /**
+  * Actualiza los aciertos e imágenes generadas
+  */
 function actualizarLocalStorage() {
     localStorage.setItem(CLAVE_ACIERTOS, JSON.stringify(listaAciertos));
     localStorage.setItem(CLAVE_IMAGENES, JSON.stringify(listaImagenes));
 }
-
+/**
+ * Permite jugar nuevamente
+ */
 function volveAJugar() {
     pResultado1.innerHTML = "Aciertos:";
     pResultado2.innerHTML = "";
@@ -138,7 +157,11 @@ function volveAJugar() {
     generar()
 }
 
-
+/**
+ * Guarda partida realizada anteriormente
+ * @param {number} aciertos:cantidad de aciertos realizados
+ * @param {string} imgURL :imagen seleccionada y comparada
+ */
 function partidaGuardada(aciertos, imgURL) {
 
     
